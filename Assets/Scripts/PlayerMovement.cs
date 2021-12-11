@@ -85,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
             this.transform.position = startPosition;
             leftLeg.transform.localPosition = new Vector3(-0.5f,0,0);
             rightLeg.transform.localPosition = new Vector3(0.5f,0,0);
+            firstMovement = true;
             InitializeLevelSequence();
             foreach (Renderer r in this.legRenderers) 
             {
@@ -110,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
     void InitializeLevelSequence() 
     {
+        this.levelSequence.Clear();
         this.levelSequence.AddLast(KeyCode.Space);
         this.levelSequence.AddLast(KeyCode.Return);
         this.levelSequence.AddLast(KeyCode.Space);
