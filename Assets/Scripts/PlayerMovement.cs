@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Renderer[] legRenderers;
     public GameObject leftLeg;
     public GameObject rightLeg;
+    public AudioSource leftLegAS;
+    public AudioSource rightLegAS;
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +43,12 @@ public class PlayerMovement : MonoBehaviour
                 if(firstMovement)
                 {
                     leftLeg.transform.Translate(0, stepSizeY / 2, StepSizeZ / 2);
+                    leftLegAS.Play();
                 }
                 else 
                 {
                     leftLeg.transform.Translate(0, stepSizeY, StepSizeZ);
+                    leftLegAS.Play();
                 }
                 moved = true;
             }
@@ -58,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
             if (correctInput == KeyCode.Return) 
             {
                 rightLeg.transform.Translate(0, stepSizeY, StepSizeZ);
+                rightLegAS.Play();
                 moved = true;
             }
             else 
