@@ -134,7 +134,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-172320
+  m_Name: pb_Mesh-16314
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -472,6 +472,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 15.345, y: 0, z: 0}
+--- !u!1 &1756374710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7974881670568021286, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
+  m_PrefabInstance: {fileID: 2480266117356391723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1756374714
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756374710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 0.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2021588732
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +592,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1187292689655898493, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1650699716543583460, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: m_Enabled
@@ -594,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3300811171960416227, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3
+      value: -0.128
       objectReference: {fileID: 0}
     - target: {fileID: 3300811171960416227, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -638,11 +656,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3757630303549118914, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: stepSizeY
-      value: 0.1
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3757630303549118914, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: stepSizeZ
-      value: 0.3
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 4301736665981700342, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: m_Enabled
