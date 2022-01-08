@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Vector3 startPosition = new Vector3(0.3f, 0.5f, -0.3f);
+    public Vector3 startPosition;
     public float stepSizeY = 0.5f;
     public float stepSizeZ = 1.0f;
     private bool movementPenalty = false;
@@ -13,11 +13,20 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource leftLegAS;
     public AudioSource rightLegAS;
 
+    private int mistakeCounter;
+    private static int MAX_MISTAKE = 3;
+
+    public Renderer rend;
+
     public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = this.gameObject.transform.position;
+        if(rend == null){
+        rend = this.GetComponentInChildren<Renderer>();
+        }
         InitializeLevelSequence();
     }
 
@@ -76,7 +85,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (madeMistake) 
         {
-            //StartCoroutine(WrongInput());
+            if(mistakeCounter < MAX_MISTAKE){
+                mistakeCounter ++;
+                StartCoroutine(WrongInput());
+            }
+            else{
+                //game over code
+                Debug.Log("Game Over!");
+            }
         }
     }
 
@@ -86,34 +102,45 @@ public class PlayerMovement : MonoBehaviour
         if(other.gameObject.name == "GoalMesh") 
         {
             Debug.Log("You have won the game!");
-            this.transform.position = startPosition;
-            /*leftLeg.transform.localPosition = new Vector3(-0.5f,0,0);
-            rightLeg.transform.localPosition = new Vector3(0.5f,0,0);*/
-            firstMovement = true;
-            InitializeLevelSequence();
-            /*foreach (Renderer r in this.legRenderers) 
-            {
-                r.material.color = Color.white;
-            }*/
+            ResetGame();
         }
     }
 
-/*
+    private void ResetGame(){
+        this.transform.position = startPosition;
+        firstMovement = true;
+        InitializeLevelSequence();
+        rend.material.color = Color.white;
+        mistakeCounter = 0;   
+        animator.SetBool("leftStep", false);
+        animator.SetBool("rightStep", false);     
+        animator.SetBool("mistake", false); 
+        animator.Play("idle");         
+    }
+
+
     IEnumerator WrongInput() 
     {
-        foreach (Renderer r in this.legRenderers) 
-        {
-            r.material.color = Color.red;
-        }
+        rend.material.color = Color.gray;
         movementPenalty = true;
+        animator.SetBool("mistake", movementPenalty);
         yield return new WaitForSeconds(1);
-        foreach (Renderer r in this.legRenderers) 
-        {
-            r.material.color = Color.white;
+        
+        if(mistakeCounter == 1){
+            rend.material.color = new Color32(255,170,170,0);
         }
+        else if (mistakeCounter== 2){
+            rend.material.color = new Color32(255,83,72,0);
+        }
+        else
+        {
+            rend.material.color = Color.red;
+        }
+        
         movementPenalty = false;
+        animator.SetBool("mistake", movementPenalty);
     }
-*/
+
 
     void InitializeLevelSequence() 
     {
