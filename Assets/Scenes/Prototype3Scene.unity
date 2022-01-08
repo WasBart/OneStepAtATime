@@ -656,7 +656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3757630303549118914, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: stepSizeY
-      value: 0.26
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3757630303549118914, guid: 90496b80e3d80884c93f8b7c41b4edff, type: 3}
       propertyPath: stepSizeZ
