@@ -1580,8 +1580,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9126938160995900946}
   - component: {fileID: 1187292689655898493}
-  - component: {fileID: 1650699716543583460}
-  - component: {fileID: 4301736665981700342}
   - component: {fileID: 1756374714}
   m_Layer: 0
   m_Name: Robot Kyle Variant
@@ -1625,37 +1623,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1650699716543583460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974881670568021286}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3b969db09f9942479697d93cada73aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: 0
---- !u!114 &4301736665981700342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974881670568021286}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43c73a474435074418f5f2be54e58a17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1187292689655898493}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  DistanceToGround: 0
-  DistanceToFront: 0
 --- !u!65 &1756374714
 BoxCollider:
   m_ObjectHideFlags: 0

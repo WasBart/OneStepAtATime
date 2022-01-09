@@ -15,7 +15,7 @@ public class Test : MonoBehaviour
 
     private void Start() {
 
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
     }
 
@@ -23,7 +23,7 @@ public class Test : MonoBehaviour
     }
 
     private void OnAnimatorIK(int layerIndex) {
-
+        Debug.Log("called");
         if (animator) { // Only carry out the following code if there is an Animator set.
 
             // Set the weights of left and right feet to the current value defined by the curve in our animations.
@@ -35,11 +35,12 @@ public class Test : MonoBehaviour
      
             // We cast our ray from above the foot in case the current terrain/floor is above the foot position.
             Ray ray = new Ray(animator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.up, Vector3.down);
-       
+
+        Debug.Log(animator.GetBoneTransform(HumanBodyBones.LeftFoot));
                     Vector3 footPosition = animator.GetBoneTransform(HumanBodyBones.LeftFoot).position;
                     Quaternion footRotation = animator.GetBoneTransform(HumanBodyBones.LeftFoot).rotation; // The target foot position is where the raycast hit a walkable object...
                     footPosition.y += DistanceToGround; // ... taking account the distance to the ground we added above.
-                     footPosition.z += DistanceToFront;
+                    footPosition.z += DistanceToFront;
                     animator.SetIKPosition(AvatarIKGoal.LeftFoot, footPosition);
                     animator.SetIKRotation(AvatarIKGoal.LeftFoot, Quaternion.Euler(0, 0, 0));
 

@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (correctInput == "half-left")
             {
-                this.transform.Translate(0, stepSizeY / 2, stepSizeZ / 2);
+                this.transform.Translate(0, stepSizeY/2, stepSizeZ/2);
                 animator.SetBool("leftStep", true);
                 animator.SetBool("rightStep", false);
                 moved = true;
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (correctInput == "half-right")
             {
-                this.transform.Translate(0, stepSizeY / 2, stepSizeZ / 2);
+                this.transform.Translate(0, stepSizeY/2, stepSizeZ/2);
                 animator.SetBool("leftStep", false);
                 animator.SetBool("rightStep", true);
                 moved = true;
@@ -194,8 +194,6 @@ public class PlayerMovement : MonoBehaviour
             this.levelSequence.AddLast("right");
             this.levelSequence.AddLast("left");
             this.levelSequence.AddLast("right");
-            this.levelSequence.AddLast("left");
-            this.levelSequence.AddLast("right");
             // Section 2
             this.levelSequence.AddLast("left");
             this.levelSequence.AddLast("half-right");
@@ -203,8 +201,6 @@ public class PlayerMovement : MonoBehaviour
             this.levelSequence.AddLast("left");
             this.levelSequence.AddLast("right");
             this.levelSequence.AddLast("left");
-            this.levelSequence.AddLast("right");
-            this.levelSequence.AddLast("left");
             this.levelSequence.AddLast("half-right");
             this.levelSequence.AddLast("half-right");
             this.levelSequence.AddLast("left");
@@ -212,6 +208,7 @@ public class PlayerMovement : MonoBehaviour
             this.levelSequence.AddLast("half-left");
             this.levelSequence.AddLast("half-left");
             this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
         }
     }
 }
