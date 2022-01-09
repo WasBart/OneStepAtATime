@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Animator animator;
 
+    public GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -110,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else{
                 //game over code
-                Debug.Log("Game Over!");
+                gameManager.showGameOverUI();
             }
         }
     }
@@ -122,10 +124,16 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("You have won the game!");
             ResetGame();
+            if(levelNumber == 1){
+                gameManager.ChangeToLevel2();
+            }
+            else{
+                gameManager.ReturnToMenu();
+            }
         }
     }
 
-    private void ResetGame(){
+    public void ResetGame(){
         this.transform.position = startPosition;
         firstMovement = true;
         InitializeLevelSequence();
