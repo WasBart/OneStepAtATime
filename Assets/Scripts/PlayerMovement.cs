@@ -9,9 +9,11 @@ public class PlayerMovement : MonoBehaviour
     public float stepSizeZ = 1.0f;
     private bool movementPenalty = false;
     private bool firstMovement = true;
-    private LinkedList<KeyCode> levelSequence = new LinkedList<KeyCode>();
+    private LinkedList<string> levelSequence = new LinkedList<string>();
     public AudioSource leftLegAS;
     public AudioSource rightLegAS;
+
+    public int levelNumber = 0;
 
     private int mistakeCounter;
     private static int MAX_MISTAKE = 3;
@@ -39,15 +41,15 @@ public class PlayerMovement : MonoBehaviour
         }
         bool moved = false;
         bool madeMistake = false;
-        KeyCode correctInput = levelSequence.First.Value;
+        string correctInput = levelSequence.First.Value;
         if (Input.GetKeyDown("space")) 
         {
             Debug.Log("Input space recognized");
             Debug.Log("Correct Input: " + correctInput);
-            Debug.Log("Current Input: " + KeyCode.Space);
-            if (correctInput == KeyCode.Space)
+            Debug.Log("Current Input: space");
+            if (correctInput == "left")
             {
-                  if(!firstMovement)
+                if(!firstMovement)
                 {
                     this.transform.Translate(0, stepSizeY, stepSizeZ);
                 }
@@ -57,6 +59,13 @@ public class PlayerMovement : MonoBehaviour
               
                 moved = true;
             }
+            else if (correctInput == "half-left")
+            {
+                this.transform.Translate(0, stepSizeY / 2, stepSizeZ / 2);
+                animator.SetBool("leftStep", true);
+                animator.SetBool("rightStep", false);
+                moved = true;
+            }
             else 
             {
                 madeMistake = true;
@@ -64,13 +73,23 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKeyDown("return"))
         {
-            if (correctInput == KeyCode.Return) 
+            Debug.Log("Input enter recognized");
+            Debug.Log("Correct Input: " + correctInput);
+            Debug.Log("Current Input: return");
+            if (correctInput == "right") 
             {
                 this.transform.Translate(0, stepSizeY, stepSizeZ);
                 animator.SetBool("leftStep", false);
                 animator.SetBool("rightStep", true);
                 
                 //rightLegAS.Play();
+                moved = true;
+            }
+            else if (correctInput == "half-right")
+            {
+                this.transform.Translate(0, stepSizeY / 2, stepSizeZ / 2);
+                animator.SetBool("leftStep", false);
+                animator.SetBool("rightStep", true);
                 moved = true;
             }
             else 
@@ -126,10 +145,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("mistake", movementPenalty);
         yield return new WaitForSeconds(1);
         
-        if(mistakeCounter == 1){
+        if (mistakeCounter == 1){
             rend.material.color = new Color32(255,170,170,0);
         }
-        else if (mistakeCounter== 2){
+        else if (mistakeCounter == 2){
             rend.material.color = new Color32(255,83,72,0);
         }
         else
@@ -144,18 +163,55 @@ public class PlayerMovement : MonoBehaviour
 
     void InitializeLevelSequence() 
     {
-        this.levelSequence.Clear();
-        this.levelSequence.AddLast(KeyCode.Space);
-        this.levelSequence.AddLast(KeyCode.Return);
-        this.levelSequence.AddLast(KeyCode.Space);
-        this.levelSequence.AddLast(KeyCode.Return);
-        this.levelSequence.AddLast(KeyCode.Space);
-        this.levelSequence.AddLast(KeyCode.Return);
-        this.levelSequence.AddLast(KeyCode.Space);
-        this.levelSequence.AddLast(KeyCode.Return);
-        this.levelSequence.AddLast(KeyCode.Space);
-        this.levelSequence.AddLast(KeyCode.Return);
-        this.levelSequence.AddLast(KeyCode.Space);
-        this.levelSequence.AddLast(KeyCode.Return);
+        if(levelNumber == 1)
+        {
+            this.levelSequence.Clear();
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+        }
+        else if(levelNumber == 2)
+        {
+            this.levelSequence.Clear();
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("half-right");
+            this.levelSequence.AddLast("half-right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("half-left");
+            this.levelSequence.AddLast("half-left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            // Section 2
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("half-right");
+            this.levelSequence.AddLast("half-right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("half-right");
+            this.levelSequence.AddLast("half-right");
+            this.levelSequence.AddLast("left");
+            this.levelSequence.AddLast("right");
+            this.levelSequence.AddLast("half-left");
+            this.levelSequence.AddLast("half-left");
+            this.levelSequence.AddLast("right");
+        }
     }
 }
