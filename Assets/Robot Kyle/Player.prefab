@@ -387,7 +387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158783751438416252}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: -0.506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9126938160995900946}
@@ -1343,7 +1343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3300811171960416227}
   - component: {fileID: 6232689998026659729}
-  - component: {fileID: 3757630303549118914}
+  - component: {fileID: 1425759867}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1384,7 +1384,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3757630303549118914
+--- !u!114 &1425759867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1396,14 +1396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a919471e56174ce40aa7e6ef7a91c475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0.3, y: 0.5, z: -0.3}
-  stepSizeY: 0.25
-  stepSizeZ: 0.48
-  leftLegAS: {fileID: 0}
-  rightLegAS: {fileID: 0}
-  levelNumber: 1
-  rend: {fileID: 0}
-  animator: {fileID: 1187292689655898493}
   gameManager: {fileID: 0}
 --- !u!1 &6497835574737572255
 GameObject:
@@ -1665,8 +1657,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9126938160995900946}
   - component: {fileID: 1187292689655898493}
-  - component: {fileID: 1756374714}
   - component: {fileID: 411108951}
+  - component: {fileID: 111698057}
   m_Layer: 0
   m_Name: Robot Kyle Variant
   m_TagString: Untagged
@@ -1709,7 +1701,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1756374714
+--- !u!114 &411108951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974881670568021286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f670cdbdb7f0a947a6a49f3d6acbf83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1187292689655898493}
+  startPosition: {x: 0, y: 0, z: 0}
+  stepSizeY: 0.5
+  stepSizeZ: 1
+  leftLegAS: {fileID: 0}
+  rightLegAS: {fileID: 0}
+  levelNumber: 1
+  rend: {fileID: 0}
+  gameManager: {fileID: 0}
+  currentLeft: {x: 0, y: 0, z: 0}
+  currentRight: {x: 0, y: 0, z: 0}
+--- !u!65 &111698057
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1720,26 +1735,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 0.5}
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &411108951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974881670568021286}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f670cdbdb7f0a947a6a49f3d6acbf83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  DistanceToGround: 0
-  DistanceToFront: 0
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8110305956160776523
 GameObject:
   m_ObjectHideFlags: 0
