@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     private string lastMovement;
 
     private int inputCounter;
+    private float lastInputTime;
+    private float hintTime = 1.0f;
+    private bool hintVisible = false;
+
 
 
     void Start()
@@ -41,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
         InitializeLevelSequence();
         currentLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot).position;
         currentRight = animator.GetBoneTransform(HumanBodyBones.RightFoot).position;
+        gameManager.UpdateInputCanvas(ConvertInput(levelSequence.First.Value));
+
     }
 
     // Update is called once per frame
@@ -87,8 +93,6 @@ public class PlayerMovement : MonoBehaviour
             this.levelSequence.AddLast("right");
             this.levelSequence.AddLast("left");
             this.levelSequence.AddLast("right");
-            this.levelSequence.AddLast("left");
-            this.levelSequence.AddLast("right");
             this.levelSequence.AddLast("EOL");
         }
 
@@ -122,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
             this.levelSequence.AddLast("half-left");
             this.levelSequence.AddLast("right");
             this.levelSequence.AddLast("left");
-             this.levelSequence.AddLast("EOL");
+            this.levelSequence.AddLast("EOL");
         }
     }
 
@@ -145,9 +149,10 @@ public class PlayerMovement : MonoBehaviour
         string correctInput = levelSequence.First.Value;
 
 
-        if (inputCounter < 4)
-        {
+        if(Time.time - lastInputTime > hintTime && inputCounter >= 3){
             gameManager.UpdateInputCanvas(ConvertInput(correctInput));
+            hintVisible = true;
+            lastInputTime = float.MaxValue;
         }
 
         if (Input.GetKeyDown("space"))
@@ -228,10 +233,20 @@ public class PlayerMovement : MonoBehaviour
         }
         if (moved)
         {
+            if(firstMovement){
+                gameManager.startTime = Time.time;
+            }
             levelSequence.RemoveFirst();
             lastMovement = correctInput;
             firstMovement = false;
             inputCounter++;
+            lastInputTime = Time.time;
+            if(hintVisible || inputCounter >= 3){
+                gameManager.UpdateInputCanvas(null);
+            }
+            else{
+                 gameManager.UpdateInputCanvas(ConvertInput(correctInput));
+            }
         }
         else if (madeMistake)
         {
@@ -256,12 +271,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
     private string ConvertInput(string input)
     {
-        if (inputCounter == 3)
-        {
-            return null;
-        }
         if (input.Contains("-"))
         {
             return input.Substring(input.LastIndexOf("-") + 1);

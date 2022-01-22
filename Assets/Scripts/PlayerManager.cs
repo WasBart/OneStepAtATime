@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
         if(other.gameObject.name == "GoalMesh") 
         {
             Debug.Log("You have won the game!");
-            gameManager.NextLevel();
+            gameManager.ShowLevelCompleteCanvas(Time.time);
         }
     }
 
