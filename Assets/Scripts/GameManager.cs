@@ -36,8 +36,13 @@ public class GameManager: MonoBehaviour
     }
 
     public void UpdateHealth(int number){
-        Debug.Log(health.transform.GetChild(number).gameObject.name);
         health.transform.GetChild(number).gameObject.SetActive(false);
+    }
+
+    public void restoreHealth(){
+        foreach(Transform child in health.transform){
+            child.gameObject.SetActive(true);
+        };
     }
 
     public void UpdateInputCanvas(string input){

@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public int levelNumber = 0;
 
     private int mistakeCounter;
-    private static int MAX_MISTAKE = 3;
+    private static int MAX_MISTAKE = 2;
 
     public Renderer rend;
 
@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 currentLeft;
     public Vector3 currentRight;
+
+    private Vector3 startingRight;
+    private Vector3 startingLeft;
 
     private string lastMovement;
 
@@ -43,10 +46,11 @@ public class PlayerMovement : MonoBehaviour
             rend = this.GetComponentInChildren<Renderer>();
         }
         InitializeLevelSequence();
+        startingRight = animator.GetBoneTransform(HumanBodyBones.RightFoot).position;
+        startingLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot).position;
         currentLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot).position;
         currentRight = animator.GetBoneTransform(HumanBodyBones.RightFoot).position;
         gameManager.UpdateInputCanvas(ConvertInput(levelSequence.First.Value));
-
     }
 
     // Update is called once per frame
@@ -60,11 +64,13 @@ public class PlayerMovement : MonoBehaviour
         firstMovement = true;
         InitializeLevelSequence();
         rend.material.color = Color.white;
-        mistakeCounter = 0;
-        animator.SetBool("leftStep", false);
-        animator.SetBool("rightStep", false);
-        animator.SetBool("mistake", false);
-        animator.Play("idle");
+        mistakeCounter = 0;        
+        inputCounter = 0;
+        hintVisible = false;
+        currentLeft = startingLeft;
+        currentRight = startingRight;
+        gameManager.UpdateInputCanvas(ConvertInput(levelSequence.First.Value));
+        gameManager.restoreHealth();
     }
 
 
@@ -249,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
                 gameManager.UpdateInputCanvas(null);
             }
             else{
-                 gameManager.UpdateInputCanvas(ConvertInput(correctInput));
+                 gameManager.UpdateInputCanvas(ConvertInput(levelSequence.First.Value));
             }
         }
         else if (madeMistake)
@@ -263,6 +269,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 //game over code
+                gameManager.UpdateHealth(mistakeCounter);
                 gameManager.showGameOverUI();
             }
         }
