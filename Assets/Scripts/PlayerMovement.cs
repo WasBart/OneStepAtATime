@@ -143,6 +143,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (movementPenalty)
         {
+            animator.SetIKPosition(AvatarIKGoal.LeftFoot, currentLeft);
+            animator.SetIKRotation(AvatarIKGoal.LeftFoot, Quaternion.Euler(0, 0, 0));
+            animator.SetIKPosition(AvatarIKGoal.RightFoot, currentRight);
+            animator.SetIKRotation(AvatarIKGoal.RightFoot, Quaternion.Euler(0, 0, 0));
             return;
         }
 
