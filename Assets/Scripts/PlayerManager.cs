@@ -6,21 +6,28 @@ public class PlayerManager : MonoBehaviour
 {
 
     public GameManager gameManager;
+    public PlayerMovement playerMovement;
 
- 
+
 
     // Start is called before the first frame update
     void Start()
+
     {
+        if (!playerMovement)
+        {
+            playerMovement = GetComponentInChildren<PlayerMovement>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
-        if(other.gameObject.name == "GoalMesh") 
+        if (other.gameObject.name == "GoalMesh")
         {
             Debug.Log("You have won the game!");
             gameManager.ShowLevelCompleteCanvas(Time.time);
+            playerMovement.gameOver = true;
         }
     }
 
@@ -45,7 +52,7 @@ public class PlayerManager : MonoBehaviour
     //     movementPenalty = true;
     //     animator.SetBool("mistake", movementPenalty);
     //     yield return new WaitForSeconds(1);
-        
+
     //     if (mistakeCounter == 1){
     //         rend.material.color = new Color32(255,170,170,0);
     //     }
@@ -56,7 +63,7 @@ public class PlayerManager : MonoBehaviour
     //     {
     //         rend.material.color = Color.red;
     //     }
-        
+
     //     movementPenalty = false;
     //     animator.SetBool("mistake", movementPenalty);
     // }
