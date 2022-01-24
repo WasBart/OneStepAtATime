@@ -131,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
             this.levelSequence.AddLast("half-left");
             this.levelSequence.AddLast("half-left");
             this.levelSequence.AddLast("right");
-            this.levelSequence.AddLast("left");
             this.levelSequence.AddLast("EOL");
         }
     }
