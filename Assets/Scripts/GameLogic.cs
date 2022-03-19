@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameLogic : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public PressableObject pressableObject;
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (pressableObject != null)
+            {
+                pressableObject.press();
+            }
+            else
+            {
+                Debug.Log("remove Life");
+            }
+        }
+    }
+}
+
+ 
