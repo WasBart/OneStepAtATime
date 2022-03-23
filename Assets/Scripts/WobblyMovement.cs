@@ -6,6 +6,7 @@ public class WobblyMovement : MonoBehaviour
 {
     public Rigidbody rb_body;
     public Rigidbody rb_head;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,14 +18,22 @@ public class WobblyMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            rb_body.AddForce(new Vector3(0, 4.0f, 4.0f), ForceMode.Impulse);
-            //this.transform.Translate(new Vector3(0, 1.0f, 0));
+            rb_body.AddForce(new Vector3(0, 50.0f, 20.0f), ForceMode.Impulse);
+            animator.SetBool("isJumping", true);
+            animator.speed = 0.5f;
+        }
+        else if (rb_body.velocity.sqrMagnitude <= 0.01f)
+        {
+                animator.SetBool("isJumping", false);
         }
 
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             rb_head.velocity = Vector3.zero;
             //this.transform.Translate(new Vector3(0, 1.0f, 0));
         }
+
+        Debug.Log(rb_body.velocity.sqrMagnitude);
+       
     }
 }
