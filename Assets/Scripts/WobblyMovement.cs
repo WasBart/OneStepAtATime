@@ -24,7 +24,7 @@ public class WobblyMovement : MonoBehaviour
         }
         else if (rb_body.velocity.sqrMagnitude <= 0.01f)
         {
-                animator.SetBool("isJumping", false);
+            animator.SetBool("isJumping", false);
         }
 
         if (Input.GetKeyDown(KeyCode.S))

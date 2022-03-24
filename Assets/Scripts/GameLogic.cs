@@ -6,9 +6,13 @@ public class GameLogic : MonoBehaviour
 {
     // Start is called before the first frame update
     public PressableObject pressableObject;
+    public List<PressableObject> pressableObjects;
+    public List<PressableObject> pressableObjectsCopy;
+    public Phase phase;
     void Start()
     {
-
+        pressableObjects = new List<PressableObject>(phase.GetPressableObjects());
+        pressableObjectsCopy = new List<PressableObject>();
     }
 
     // Update is called once per frame
@@ -16,9 +20,18 @@ public class GameLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (pressableObject != null)
+            if (pressableObject != null && pressableObjects.Contains(pressableObject))
             {
-                pressableObject.press();
+                pressableObject.Press();
+                pressableObjectsCopy.Add(pressableObject);
+                pressableObjects.Remove(pressableObject);
+                if(pressableObjects.Count == 0)
+                {
+                    Debug.Log("trigger step");
+                    pressableObjects = new List<PressableObject>(pressableObjectsCopy);
+                    pressableObjectsCopy.Clear();
+                    pressableObjects.ForEach(p => p.Restore());
+                }
             }
             else
             {
@@ -26,6 +39,8 @@ public class GameLogic : MonoBehaviour
             }
         }
     }
+
+    
 }
 
  
