@@ -7,10 +7,13 @@ public class WobblyMovement : MonoBehaviour
     public Rigidbody rb_body;
     public Rigidbody rb_head;
     public Animator animator;
+
+    public float upForce;
+    public float forwardForce;
     // Start is called before the first frame update
     void Start()
     {
-    
+        
     }
 
     // Update is called once per frame
@@ -18,7 +21,7 @@ public class WobblyMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            rb_body.AddForce(new Vector3(0, 50.0f, 20.0f), ForceMode.Impulse);
+            rb_body.AddForce(new Vector3(0, upForce, forwardForce), ForceMode.Impulse);
             animator.SetBool("isJumping", true);
             animator.speed = 0.5f;
         }
