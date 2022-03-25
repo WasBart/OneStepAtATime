@@ -9,10 +9,13 @@ public class GameLogic : MonoBehaviour
     public List<PressableObject> pressableObjects;
     public List<PressableObject> pressableObjectsCopy;
     public Phase phase;
+    public WobblyMovement wobblyMovement;
+    public Animator rhythmAnimator;
     void Start()
     {
         pressableObjects = new List<PressableObject>(phase.GetPressableObjects());
         pressableObjectsCopy = new List<PressableObject>();
+        rhythmAnimator.SetFloat("speed", 0.8f);
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class GameLogic : MonoBehaviour
                 if(pressableObjects.Count == 0)
                 {
                     Debug.Log("trigger step");
+                    wobblyMovement.Jump();
                     pressableObjects = new List<PressableObject>(pressableObjectsCopy);
                     pressableObjectsCopy.Clear();
                     pressableObjects.ForEach(p => p.Restore());

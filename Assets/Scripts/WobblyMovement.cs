@@ -10,25 +10,32 @@ public class WobblyMovement : MonoBehaviour
 
     public float upForce;
     public float forwardForce;
+    private Vector3 offset = new Vector3(0, 0.05f, 0);
+    public float time;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+
+        if (animator.GetBool("isJumping") && rb_body.velocity.y <= 0.0f)
         {
-            rb_body.AddForce(new Vector3(0, upForce, forwardForce), ForceMode.Impulse);
-            animator.SetBool("isJumping", true);
-            animator.speed = 0.5f;
+            RaycastHit hit;
+            if (Physics.Raycast(rb_body.transform.position + offset, Vector3.down, out hit, 0.1f))
+            {
+                if (hit.collider.CompareTag("Stairs"))
+                {
+                    animator.SetBool("isJumping", false);
+                    time = Time.time - time;
+                }
+            }
         }
-        else if (rb_body.velocity.sqrMagnitude <= 0.01f)
-        {
-            animator.SetBool("isJumping", false);
-        }
+
 
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -36,7 +43,16 @@ public class WobblyMovement : MonoBehaviour
             //this.transform.Translate(new Vector3(0, 1.0f, 0));
         }
 
-        Debug.Log(rb_body.velocity.sqrMagnitude);
-       
+        //Debug.Log(rb_body.velocity.sqrMagnitude);
+
+    }
+    public void Jump()
+    {
+        rb_body.AddForce(new Vector3(0, upForce, forwardForce), ForceMode.Impulse);
+        animator.SetBool("isJumping", true);
+        time = Time.time;
     }
 }
+
+
+
