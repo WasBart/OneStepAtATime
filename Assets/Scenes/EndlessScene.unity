@@ -13180,8 +13180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 503925419}
-  zOffset: 10
-  yOffset: 1.5
+  zOffset: 12
+  yOffset: 1
   interpolation: 1
 --- !u!43 &1610395961
 Mesh:
