@@ -31,6 +31,7 @@ public class WobblyMovement : MonoBehaviour
                 if (hit.collider.CompareTag("Stairs"))
                 {
                     animator.SetBool("isJumping", false);
+                    //rb_body.velocity = Vector3.zero;
                     time = Time.time - time;
                 }
             }

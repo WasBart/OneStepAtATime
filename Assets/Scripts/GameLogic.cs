@@ -15,7 +15,7 @@ public class GameLogic : MonoBehaviour
     {
         pressableObjects = new List<PressableObject>(phase.GetPressableObjects());
         pressableObjectsCopy = new List<PressableObject>();
-        rhythmAnimator.SetFloat("speed", 0.8f);
+        rhythmAnimator.SetFloat("speed", 0.75f);
     }
 
     // Update is called once per frame
