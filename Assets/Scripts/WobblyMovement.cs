@@ -23,19 +23,19 @@ public class WobblyMovement : MonoBehaviour
     void Update()
     {
 
-        if (animator.GetBool("isJumping") && rb_body.velocity.y <= 0.0f)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(rb_body.transform.position + offset, Vector3.down, out hit, 0.1f))
-            {
-                if (hit.collider.CompareTag("Stairs"))
-                {
-                    animator.SetBool("isJumping", false);
-                    //rb_body.velocity = Vector3.zero;
-                    time = Time.time - time;
-                }
-            }
-        }
+        //if (animator.GetBool("isJumping") && rb_body.velocity.y <= 0.0f)
+        //{
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(rb_body.transform.position + offset, Vector3.down, out hit, 0.1f))
+        //    {
+        //        if (hit.collider.CompareTag("Stairs"))
+        //        {
+        //            animator.SetBool("isJumping", false);
+        //            //rb_body.velocity = Vector3.zero;
+        //            time = Time.time - time;
+        //        }
+        //    }
+        //}
 
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -47,11 +47,18 @@ public class WobblyMovement : MonoBehaviour
         //Debug.Log(rb_body.velocity.sqrMagnitude);
 
     }
+
     public void Jump()
     {
         rb_body.AddForce(new Vector3(0, upForce, forwardForce), ForceMode.Impulse);
+        animator.SetBool("prepareJump", false);
         animator.SetBool("isJumping", true);
         time = Time.time;
+    }
+
+    public void prepareJump()
+    {
+        animator.SetBool("prepareJump", true);
     }
 }
 

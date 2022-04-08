@@ -23,24 +23,32 @@ public class GameLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (pressableObject != null && pressableObjects.Contains(pressableObject))
-            {
-                pressableObject.Press();
-                pressableObjectsCopy.Add(pressableObject);
-                pressableObjects.Remove(pressableObject);
-                if(pressableObjects.Count == 0)
-                {
-                    Debug.Log("trigger step");
-                    wobblyMovement.Jump();
-                    pressableObjects = new List<PressableObject>(pressableObjectsCopy);
-                    pressableObjectsCopy.Clear();
-                    pressableObjects.ForEach(p => p.Restore());
-                }
-            }
-            else
-            {
-                Debug.Log("remove Life");
-            }
+            wobblyMovement.animator.SetBool("landed", false);
+            wobblyMovement.prepareJump();       
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            wobblyMovement.Jump();
+            //    if (pressableObject != null && pressableObjects.Contains(pressableObject))
+            //    {
+            //        pressableObject.Press();
+            //        pressableObjectsCopy.Add(pressableObject);
+            //        pressableObjects.Remove(pressableObject);
+            //        if(pressableObjects.Count == 0)
+            //        {
+            //            Debug.Log("trigger step");
+
+            //            pressableObjects = new List<PressableObject>(pressableObjectsCopy);
+            //            pressableObjectsCopy.Clear();
+            //            pressableObjects.ForEach(p => p.Restore());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Debug.Log("remove Life");
+            //    }
+            //
         }
     }
 
