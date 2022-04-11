@@ -19,7 +19,7 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.transform.parent.position = other.transform.parent.position - new Vector3(0, 3*2.5f, 3*4.96f);
+        other.transform.GetComponentInParent<WobblyMovement>().transform.position = other.transform.GetComponentInParent<WobblyMovement>().transform.position - new Vector3(0, 3*2.5f, 3*4.96f);
         mainCam.transform.position = mainCam.transform.position - new Vector3(0, 3*2.5f, 3*4.96f);
     }
 }

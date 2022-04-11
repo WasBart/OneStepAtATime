@@ -21,10 +21,8 @@ public class GroundChecker : MonoBehaviour {
 
     void OnCollisionStay(Collision collisionInfo)
     {
-        Debug.Log(collisionInfo.gameObject.name);
         if (collisionInfo.transform.tag == "Stairs" && wobblyMovement.animator.GetBool("isJumping") && wobblyMovement.rb_body.velocity.y <= 0.001)
         {
-            Debug.Log("INIT");
             wobblyMovement.animator.SetBool("isJumping", false);
             wobblyMovement.animator.SetBool("landed", true);
             //animator.SetBool("isJumping", false);

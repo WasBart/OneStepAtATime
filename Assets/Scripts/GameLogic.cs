@@ -6,6 +6,7 @@ public class GameLogic : MonoBehaviour
 {
     // Start is called before the first frame update
     public PressableObject pressableObject;
+    public ErrorPressableObject errordPressableObject;
     public List<PressableObject> pressableObjects;
     public List<PressableObject> pressableObjectsCopy;
     public Phase phase;
@@ -13,7 +14,7 @@ public class GameLogic : MonoBehaviour
     public Animator rhythmAnimator;
     void Start()
     {
-        pressableObjects = new List<PressableObject>(phase.GetPressableObjects());
+        pressableObjects = new List<PressableObject>(phase.GetAllowedPressableObjects());
         pressableObjectsCopy = new List<PressableObject>();
         rhythmAnimator.SetFloat("speed", 0.75f);
     }
@@ -24,31 +25,42 @@ public class GameLogic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             wobblyMovement.animator.SetBool("landed", false);
-            wobblyMovement.prepareJump();       
+            wobblyMovement.prepareJump();
+            rhythmAnimator.SetBool("moving", true);
+            pressableObject = null;
+            rhythmAnimator.SetFloat("speed", 0.75f);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            wobblyMovement.Jump();
-            //    if (pressableObject != null && pressableObjects.Contains(pressableObject))
-            //    {
-            //        pressableObject.Press();
-            //        pressableObjectsCopy.Add(pressableObject);
-            //        pressableObjects.Remove(pressableObject);
-            //        if(pressableObjects.Count == 0)
-            //        {
-            //            Debug.Log("trigger step");
+            rhythmAnimator.SetFloat("speed", 0);
+            if (pressableObject != null)
+            {
+                Debug.Log(pressableObject.gameObject.name);
+                if (pressableObjects.Contains(pressableObject)){
+                    wobblyMovement.Jump();
+                    pressableObject.Press();
+                    pressableObjectsCopy.Add(pressableObject);
+                    pressableObjects.Remove(pressableObject);
+                    if (pressableObjects.Count == 0)
+                    {
+                        Debug.Log("trigger step");
 
-            //            pressableObjects = new List<PressableObject>(pressableObjectsCopy);
-            //            pressableObjectsCopy.Clear();
-            //            pressableObjects.ForEach(p => p.Restore());
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Debug.Log("remove Life");
-            //    }
-            //
+                        pressableObjects = new List<PressableObject>(pressableObjectsCopy);
+                        pressableObjectsCopy.Clear();
+                        pressableObjects.ForEach(p => p.Restore());
+                    }
+                }
+                //must be error pressable
+                else {
+                    Debug.Log("remove Life");
+                }
+            }
+            else
+            {
+                Debug.Log("nothing happens");  
+            }
+
         }
     }
 

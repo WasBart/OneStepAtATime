@@ -16,8 +16,13 @@ public class Phase : MonoBehaviour
         
     }
 
-    public PressableObject[] GetPressableObjects()
+    public AllowedPressableObject[] GetAllowedPressableObjects()
     {
-        return this.GetComponentsInChildren<PressableObject>();
+        return this.GetComponentsInChildren<AllowedPressableObject>();
+    }
+
+    public ErrorPressableObject[] GetErrorPressableObjects()
+    {
+        return this.GetComponentsInChildren<ErrorPressableObject>();
     }
 }
