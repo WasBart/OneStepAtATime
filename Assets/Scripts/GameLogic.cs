@@ -25,7 +25,7 @@ public class GameLogic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             wobblyMovement.animator.SetBool("landed", false);
-            wobblyMovement.prepareJump();
+            wobblyMovement.PrepareJump();
             rhythmAnimator.SetBool("moving", true);
             pressableObject = null;
             rhythmAnimator.SetFloat("speed", 0.75f);
@@ -54,11 +54,12 @@ public class GameLogic : MonoBehaviour
                 //must be error pressable
                 else {
                     Debug.Log("remove Life");
+                    wobblyMovement.Fail();
                 }
             }
             else
             {
-                Debug.Log("nothing happens");  
+                wobblyMovement.Miss();
             }
 
         }

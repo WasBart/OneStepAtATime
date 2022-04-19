@@ -56,9 +56,19 @@ public class WobblyMovement : MonoBehaviour
         time = Time.time;
     }
 
-    public void prepareJump()
+    public void PrepareJump()
     {
         animator.SetBool("prepareJump", true);
+    }
+
+    public void Miss()
+    {
+        animator.SetBool("prepareJump", false);
+    }
+
+    public void Fail()
+    {
+        animator.SetBool("fail", true);
     }
 }
 
