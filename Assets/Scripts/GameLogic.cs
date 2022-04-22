@@ -12,40 +12,42 @@ public class GameLogic : MonoBehaviour
     public Phase phase;
     public WobblyMovement wobblyMovement;
     public Animator rhythmAnimator;
+
     void Start()
     {
         pressableObjects = new List<PressableObject>(phase.GetAllowedPressableObjects());
         pressableObjectsCopy = new List<PressableObject>();
         rhythmAnimator.SetFloat("speed", 0.75f);
+        wobblyMovement.animator.SetBool("landed", true);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            wobblyMovement.animator.SetBool("landed", false);
+        if (Input.GetKeyDown(KeyCode.Space) && (wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
+        { 
             wobblyMovement.PrepareJump();
             rhythmAnimator.SetBool("moving", true);
             pressableObject = null;
             rhythmAnimator.SetFloat("speed", 0.75f);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && wobblyMovement.animator.GetBool("landed"))
         {
             rhythmAnimator.SetFloat("speed", 0);
             if (pressableObject != null)
             {
                 Debug.Log(pressableObject.gameObject.name);
                 if (pressableObjects.Contains(pressableObject)){
-                    wobblyMovement.Jump();
                     pressableObject.Press();
                     pressableObjectsCopy.Add(pressableObject);
                     pressableObjects.Remove(pressableObject);
                     if (pressableObjects.Count == 0)
                     {
+                        wobblyMovement.Jump();
                         Debug.Log("trigger step");
-
+                        pressableObject = null;
                         pressableObjects = new List<PressableObject>(pressableObjectsCopy);
                         pressableObjectsCopy.Clear();
                         pressableObjects.ForEach(p => p.Restore());
@@ -55,11 +57,13 @@ public class GameLogic : MonoBehaviour
                 else {
                     Debug.Log("remove Life");
                     wobblyMovement.Fail();
+                    pressableObject = null;
                 }
             }
             else
             {
                 wobblyMovement.Miss();
+                pressableObject = null;
             }
 
         }

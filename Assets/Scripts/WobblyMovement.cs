@@ -52,23 +52,30 @@ public class WobblyMovement : MonoBehaviour
     {
         rb_body.AddForce(new Vector3(0, upForce, forwardForce), ForceMode.Impulse);
         animator.SetBool("prepareJump", false);
+        animator.SetBool("landed", false);
         animator.SetBool("isJumping", true);
         time = Time.time;
     }
 
     public void PrepareJump()
     {
+        Debug.Log("Prepare");
         animator.SetBool("prepareJump", true);
     }
 
     public void Miss()
     {
+        Debug.Log("Miss");
         animator.SetBool("prepareJump", false);
+        animator.SetBool("landed", true);
     }
 
     public void Fail()
     {
+        Debug.Log("Fail");
+        animator.SetBool("prepareJump", false);
         animator.SetBool("fail", true);
+        animator.SetBool("landed", true);
     }
 }
 
