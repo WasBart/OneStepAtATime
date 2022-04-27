@@ -12,6 +12,9 @@ public class GameLogic : MonoBehaviour
     public Phase phase;
     public WobblyMovement wobblyMovement;
     public Animator rhythmAnimator;
+    private float windupNeeded = 1.0f;
+    private float curTime = 0;
+    private float targetTime = 0;
 
     void Start()
     {
@@ -28,6 +31,8 @@ public class GameLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && (wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
         { 
+            curTime = Time.time;
+            targetTime = curTime + windupNeeded;
             wobblyMovement.PrepareJump();
            
             pressableObject = null;
@@ -36,22 +41,25 @@ public class GameLogic : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && wobblyMovement.animator.GetBool("landed"))
         {
-            rhythmAnimator.SetFloat("speed", 0f);
-            if (pressableObject != null)
+            if(Time.time >= targetTime)
             {
-                Debug.Log(pressableObject.gameObject.name);
-                if (pressableObjects.Contains(pressableObject)){
-                    pressableObject.Press();
-                    pressableObjectsCopy.Add(pressableObject);
-                    pressableObjects.Remove(pressableObject);
-                    if (pressableObjects.Count == 0)
-                    {
-                        wobblyMovement.Jump();
-                        Debug.Log("trigger step");
-                        pressableObject = null;
-                        pressableObjects = new List<PressableObject>(pressableObjectsCopy);
-                        pressableObjectsCopy.Clear();
-                        pressableObjects.ForEach(p => p.Restore());
+                rhythmAnimator.SetFloat("speed", 0f);
+                if (pressableObject != null)
+                {
+                    Debug.Log(pressableObject.gameObject.name);
+                    if (pressableObjects.Contains(pressableObject)){
+                        pressableObject.Press();
+                        pressableObjectsCopy.Add(pressableObject);
+                        pressableObjects.Remove(pressableObject);
+                        if (pressableObjects.Count == 0)
+                        {
+                            wobblyMovement.Jump();
+                            Debug.Log("trigger step");
+                            pressableObject = null;
+                            pressableObjects = new List<PressableObject>(pressableObjectsCopy);
+                            pressableObjectsCopy.Clear();
+                            pressableObjects.ForEach(p => p.Restore());
+                        }
                     }
                 }
                 //must be error pressable
