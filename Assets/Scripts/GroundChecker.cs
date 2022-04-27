@@ -5,6 +5,7 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour { 
 
     public WobblyMovement wobblyMovement;
+    public Animator rhythmAnimator;
 
 
     // Start is called before the first frame update
@@ -25,6 +26,7 @@ public class GroundChecker : MonoBehaviour {
         {
             wobblyMovement.animator.SetBool("isJumping", false);
             wobblyMovement.animator.SetBool("landed", true);
+            rhythmAnimator.SetFloat("speed", 0.75f);
             //animator.SetBool("isJumping", false);
         }
     }

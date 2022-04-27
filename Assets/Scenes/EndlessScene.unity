@@ -3003,6 +3003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wobblyMovement: {fileID: 1950676238}
+  rhythmAnimator: {fileID: 469086123}
 --- !u!1 &587737488
 GameObject:
   m_ObjectHideFlags: 0

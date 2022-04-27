@@ -19,6 +19,7 @@ public class GameLogic : MonoBehaviour
         pressableObjectsCopy = new List<PressableObject>();
         rhythmAnimator.SetFloat("speed", 0.75f);
         wobblyMovement.animator.SetBool("landed", true);
+        rhythmAnimator.SetBool("moving", true);
 
     }
 
@@ -28,14 +29,14 @@ public class GameLogic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && (wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
         { 
             wobblyMovement.PrepareJump();
-            rhythmAnimator.SetBool("moving", true);
+           
             pressableObject = null;
             rhythmAnimator.SetFloat("speed", 0.75f);
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && wobblyMovement.animator.GetBool("landed"))
         {
-            rhythmAnimator.SetFloat("speed", 0);
+            rhythmAnimator.SetFloat("speed", 0f);
             if (pressableObject != null)
             {
                 Debug.Log(pressableObject.gameObject.name);
