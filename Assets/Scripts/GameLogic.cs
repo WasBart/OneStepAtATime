@@ -15,12 +15,13 @@ public class GameLogic : MonoBehaviour
     private float windupNeeded = 1.0f;
     private float curTime = 0;
     private float targetTime = 0;
+    private float speed = 0.75f;
 
     void Start()
     {
         pressableObjects = new List<PressableObject>(phase.GetAllowedPressableObjects());
         pressableObjectsCopy = new List<PressableObject>();
-        rhythmAnimator.SetFloat("speed", 0.75f);
+        rhythmAnimator.SetFloat("speed", speed);
         wobblyMovement.animator.SetBool("landed", true);
         rhythmAnimator.SetBool("moving", true);
 
@@ -30,24 +31,26 @@ public class GameLogic : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && (wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
-        { 
+        {
+            Debug.Log("Down Triggered");
             curTime = Time.time;
             targetTime = curTime + windupNeeded;
             wobblyMovement.PrepareJump();
-           
+
             pressableObject = null;
-            rhythmAnimator.SetFloat("speed", 0.75f);
+            rhythmAnimator.SetFloat("speed", speed);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && wobblyMovement.animator.GetBool("landed"))
+        if (Input.GetKeyUp(KeyCode.Space) && (wobblyMovement.animator.GetBool("prepareJump")))
         {
-            if(Time.time >= targetTime)
+            if (Time.time >= targetTime)
             {
                 rhythmAnimator.SetFloat("speed", 0f);
                 if (pressableObject != null)
                 {
                     Debug.Log(pressableObject.gameObject.name);
-                    if (pressableObjects.Contains(pressableObject)){
+                    if (pressableObjects.Contains(pressableObject))
+                    {
                         pressableObject.Press();
                         pressableObjectsCopy.Add(pressableObject);
                         pressableObjects.Remove(pressableObject);
@@ -61,16 +64,24 @@ public class GameLogic : MonoBehaviour
                             pressableObjects.ForEach(p => p.Restore());
                         }
                     }
+                    //must be error pressable
+                    else
+                    {
+                        Debug.Log("remove Life");
+                        wobblyMovement.Fail();
+                        pressableObject = null;
+                    }
                 }
-                //must be error pressable
-                else {
-                    Debug.Log("remove Life");
-                    wobblyMovement.Fail();
+                else
+                {
+                    wobblyMovement.Miss();
                     pressableObject = null;
                 }
+
             }
             else
             {
+                Debug.Log("Not Enough time!");
                 wobblyMovement.Miss();
                 pressableObject = null;
             }
@@ -78,7 +89,7 @@ public class GameLogic : MonoBehaviour
         }
     }
 
-    
+
 }
 
- 
+

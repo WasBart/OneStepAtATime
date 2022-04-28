@@ -17,14 +17,18 @@ public class ErrorPressableObject : PressableObject
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {
+    {     
         gameLogic.pressableObject = this;
 
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        gameLogic.pressableObject = null;
+        Debug.Log(gameObject.name + " exit");
+        if (gameLogic.pressableObject == this)
+        {
+            gameLogic.pressableObject = null;
+        }
     }
 
     override public void Press()

@@ -35,6 +35,7 @@ public class AllowedPressableObject : PressableObject {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(gameObject.name + " enter");
         if (!pressed)
         {
             gameLogic.pressableObject = this;
@@ -44,9 +45,13 @@ public class AllowedPressableObject : PressableObject {
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log(gameObject.name + " exit");
         if (!pressed)
         {
-            gameLogic.pressableObject = null;
+            if (gameLogic.pressableObject == this)
+            {
+                gameLogic.pressableObject = null;
+            }
             rect.sizeDelta = new Vector2(60, 60);
         }
     }

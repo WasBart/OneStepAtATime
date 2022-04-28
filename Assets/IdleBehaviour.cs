@@ -8,6 +8,7 @@ public class IdleBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("fail", false);
+        //TODO: Replace with speed variable
         animator.gameObject.GetComponentInChildren<GroundChecker>().rhythmAnimator.SetFloat("speed", 0.75f);
     }
 
