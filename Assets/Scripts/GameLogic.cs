@@ -9,17 +9,23 @@ public class GameLogic : MonoBehaviour
     public ErrorPressableObject errordPressableObject;
     public List<PressableObject> pressableObjects;
     public List<PressableObject> pressableObjectsCopy;
-    public Phase phase;
+    public GameObject phaseContainer;
     public WobblyMovement wobblyMovement;
     public Animator rhythmAnimator;
-    private float windupNeeded = 1.0f;
+    private float windupNeeded = 0.5f;
     private float curTime = 0;
     private float targetTime = 0;
     private float speed = 0.75f;
+    private int stepCount;
+    public Phase[] phases;
+    public int phaseChangeCount = 10;
+    private int currentPhase = 0;
+    private bool initJump = false;
 
     void Start()
     {
-        pressableObjects = new List<PressableObject>(phase.GetAllowedPressableObjects());
+        phases = phaseContainer.GetComponentsInChildren<Phase>(true);
+        pressableObjects = new List<PressableObject>(phases[currentPhase].GetAllowedPressableObjects());
         pressableObjectsCopy = new List<PressableObject>();
         rhythmAnimator.SetFloat("speed", speed);
         wobblyMovement.animator.SetBool("landed", true);
@@ -30,15 +36,23 @@ public class GameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Down Triggered");
             curTime = Time.time;
             targetTime = curTime + windupNeeded;
-            wobblyMovement.PrepareJump();
-
             pressableObject = null;
             rhythmAnimator.SetFloat("speed", speed);
+            initJump = true;
+        }
+        if (initJump)
+        {
+            if ((wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
+            {
+                Debug.Log("prpeare jump triggered");
+                wobblyMovement.PrepareJump();
+                initJump = false;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && (wobblyMovement.animator.GetBool("prepareJump")))
@@ -62,6 +76,18 @@ public class GameLogic : MonoBehaviour
                             pressableObjects = new List<PressableObject>(pressableObjectsCopy);
                             pressableObjectsCopy.Clear();
                             pressableObjects.ForEach(p => p.Restore());
+                            stepCount++;
+                            Debug.Log(stepCount);
+
+                            if (currentPhase == 1)
+                            {
+                                phases[currentPhase].GetComponent<RectTransform>().anchoredPosition = new Vector3(Random.Range(-243.0f, 243.0f), phases[currentPhase].GetComponent<RectTransform>().anchoredPosition.y);
+                            }
+
+                            if(stepCount % phaseChangeCount == 0)
+                            {
+                                ChangePhase();
+                            }
                         }
                     }
                     //must be error pressable
@@ -89,7 +115,20 @@ public class GameLogic : MonoBehaviour
         }
     }
 
+    private void ChangePhase()
+    {
+        Debug.Log("changePhaseTriggered");
+        if (currentPhase < phases.Length - 1)
+        {
+            phases[currentPhase].gameObject.SetActive(false);
+            currentPhase++;
+            phases[currentPhase].gameObject.SetActive(true);
+            pressableObjects = new List<PressableObject>(phases[currentPhase].GetAllowedPressableObjects());
+        }
+    }
 
 }
+
+
 
 
