@@ -17,7 +17,8 @@ public class ErrorPressableObject : PressableObject
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {     
+    {
+        //Debug.Log(gameObject.name + " enter");
         gameLogic.pressableObject = this;
 
     }

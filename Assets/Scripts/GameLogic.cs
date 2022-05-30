@@ -25,6 +25,7 @@ public class GameLogic : MonoBehaviour
     private bool initJump = false;
     public GameObject mainCam;
     public GameObject moving;
+    private bool jumpAllowed;
 
     void Start()
     {
@@ -51,7 +52,7 @@ public class GameLogic : MonoBehaviour
         }
         if (initJump)
         {
-            if ((wobblyMovement.animator.GetBool("landed") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
+            if (wobblyMovement.animator.GetBool("landed") && (wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed")))
             {
                 Debug.Log("prpeare jump triggered");
                 wobblyMovement.PrepareJump();
@@ -59,21 +60,24 @@ public class GameLogic : MonoBehaviour
             }
         }
 
-        if(Time.time >= targetTime && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+        if(Time.time >= targetTime && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("fail") && !initJump)
         {
             pressableObjects.ForEach(c => c.GetComponent<Image>().color = new Color(0.9f, 0.9f, 0.9f,1.0f));
+            jumpAllowed = true;
         }
         else
         {
             pressableObjects.ForEach(c => c.GetComponent<Image>().color = Color.gray);
+            jumpAllowed = false;
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             initJump = false;
             rhythmAnimator.SetFloat("speed", 0f);
-            if (wobblyMovement.animator.GetBool("prepareJump") && wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Prepare") || wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Hold"))
+            if (jumpAllowed)
             {
+                jumpAllowed = false;
                 if (Time.time >= targetTime)
                 {
                     targetTime = float.MaxValue;
@@ -111,8 +115,10 @@ public class GameLogic : MonoBehaviour
                                     {
                                         Debug.Log(pressableObjects[0].GetComponent<RectTransform>().sizeDelta);
                                         pressableObjects.ForEach(c => c.GetComponent<RectTransform>().sizeDelta -= new Vector2(20, 0));
+                                        pressableObjects.ForEach(c => c.GetComponent<BoxCollider2D>().size -= new Vector2(20, 0));
                                         pressableObjects.ForEach(c => c.GetComponent<AllowedPressableObject>().currentSize = c.GetComponent<RectTransform>().sizeDelta);
                                         errorPressableObjects.ForEach(c => c.GetComponent<RectTransform>().sizeDelta += new Vector2(35, 0));
+                                        errorPressableObjects.ForEach(c => c.GetComponent<BoxCollider2D>().size += new Vector2(35, 0));
                                     }
                                     else
                                     {
@@ -140,6 +146,7 @@ public class GameLogic : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("pressableOject null");
                         targetTime = float.MaxValue;
                         wobblyMovement.Miss();
                         pressableObject = null;
@@ -156,6 +163,7 @@ public class GameLogic : MonoBehaviour
             }
             else
             {
+                Debug.Log("wrong state");
                 targetTime = float.MaxValue;
                 wobblyMovement.Miss();
                 pressableObject = null;

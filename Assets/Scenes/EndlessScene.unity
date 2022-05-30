@@ -2427,7 +2427,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 55.5, y: 50}
+  m_Size: {x: 55, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &149691265
 MonoBehaviour:
@@ -2768,7 +2768,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22158
+  m_Name: pb_Mesh22160
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3021,7 +3021,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22254
+  m_Name: pb_Mesh22256
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3185,7 +3185,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22240
+  m_Name: pb_Mesh22242
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3685,7 +3685,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 28, y: 50}
+  m_Size: {x: 150, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &462673834
 MonoBehaviour:
@@ -5968,7 +5968,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 28, y: 50}
+  m_Size: {x: 55, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &680492383
 MonoBehaviour:
@@ -8612,7 +8612,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 55.5, y: 50}
+  m_Size: {x: 34.5, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &909909860
 MonoBehaviour:
@@ -9031,7 +9031,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 28, y: 50}
+  m_Size: {x: 150, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &1047678600
 MonoBehaviour:
@@ -12881,7 +12881,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22118
+  m_Name: pb_Mesh22120
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15530,7 +15530,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 28, y: 50}
+  m_Size: {x: 55, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &1410050479
 MonoBehaviour:
@@ -15647,7 +15647,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 55.5, y: 50}
+  m_Size: {x: 55, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &1456764611
 MonoBehaviour:
@@ -15952,7 +15952,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 55.5, y: 50}
+  m_Size: {x: 94.5, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &1554711151
 MonoBehaviour:
@@ -16214,7 +16214,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22270
+  m_Name: pb_Mesh22272
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18351,7 +18351,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 55.5, y: 50}
+  m_Size: {x: 34.5, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &1721215176
 MonoBehaviour:
@@ -22981,7 +22981,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 55.5, y: 50}
+  m_Size: {x: 55, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &1098895283942851779
 MonoBehaviour:
