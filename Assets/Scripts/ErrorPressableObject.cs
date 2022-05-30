@@ -24,7 +24,7 @@ public class ErrorPressableObject : PressableObject
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log(gameObject.name + " exit");
+        //Debug.Log(gameObject.name + " exit");
         if (gameLogic.pressableObject == this)
         {
             gameLogic.pressableObject = null;

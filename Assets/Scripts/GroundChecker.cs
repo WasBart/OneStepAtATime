@@ -26,7 +26,7 @@ public class GroundChecker : MonoBehaviour {
         {
             wobblyMovement.animator.SetBool("isJumping", false);
             wobblyMovement.animator.SetBool("landed", true);
-            rhythmAnimator.SetFloat("speed", 0.75f);
+            rhythmAnimator.SetFloat("speed", wobblyMovement.barAnimSpeed);
             //animator.SetBool("isJumping", false);
         }
     }

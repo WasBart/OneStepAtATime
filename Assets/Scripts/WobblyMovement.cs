@@ -12,6 +12,7 @@ public class WobblyMovement : MonoBehaviour
     public float forwardForce;
     private Vector3 offset = new Vector3(0, 0.05f, 0);
     public float time;
+    public float barAnimSpeed = 0.75f;
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +68,7 @@ public class WobblyMovement : MonoBehaviour
     {
         Debug.Log("Miss");
         animator.SetBool("prepareJump", false);
-        animator.SetBool("landed", true);
+        //animator.SetBool("landed", true);
     }
 
     public void Fail()

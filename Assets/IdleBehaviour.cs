@@ -9,7 +9,7 @@ public class IdleBehaviour : StateMachineBehaviour
     {
         animator.SetBool("fail", false);
         //TODO: Replace with speed variable
-        animator.gameObject.GetComponentInChildren<GroundChecker>().rhythmAnimator.SetFloat("speed", 0.75f);
+        animator.gameObject.GetComponentInChildren<GroundChecker>().rhythmAnimator.SetFloat("speed", animator.gameObject.GetComponentInChildren<GroundChecker>().wobblyMovement.barAnimSpeed);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

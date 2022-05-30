@@ -8,6 +8,7 @@ public class AllowedPressableObject : PressableObject {
     private Image image;
     private Color initialColor;
     private bool pressed;
+    public Vector2 currentSize;
 
     // Start is called before the first frame update
     void Start()
@@ -15,13 +16,14 @@ public class AllowedPressableObject : PressableObject {
         rect = GetComponent<RectTransform>();
         image = GetComponent<Image>();
         initialColor = image.color;
+        currentSize = rect.sizeDelta;
     }
 
     override public void Press()
     {
         Debug.Log(gameObject.name + " is pressed");
         image.color = Color.green;
-        rect.sizeDelta = new Vector2(40, 40);
+        rect.sizeDelta = currentSize;
         pressed = true;
     }
 
@@ -29,30 +31,31 @@ public class AllowedPressableObject : PressableObject {
     {
         Debug.Log(gameObject.name + " is restored");
         image.color = initialColor;
-        rect.sizeDelta = new Vector2(60, 60);
+        rect.sizeDelta = currentSize;
         pressed = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(gameObject.name + " enter");
+       //Debug.Log(gameObject.name + " enter");
         if (!pressed)
         {
+            currentSize = rect.sizeDelta;
             gameLogic.pressableObject = this;
-            rect.sizeDelta = new Vector2(65, 65);
+            rect.sizeDelta += new Vector2(0,5f);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log(gameObject.name + " exit");
+        //Debug.Log(gameObject.name + " exit");
         if (!pressed)
         {
             if (gameLogic.pressableObject == this)
             {
                 gameLogic.pressableObject = null;
             }
-            rect.sizeDelta = new Vector2(60, 60);
+            rect.sizeDelta = currentSize;
         }
     }
 }
