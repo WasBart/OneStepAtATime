@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class GameLogic : MonoBehaviour
     public GameObject mainCam;
     public GameObject moving;
     private bool jumpAllowed;
+    public GameObject UI;
+    public Vector3 initialPos;
 
     void Start()
     {
@@ -36,6 +39,7 @@ public class GameLogic : MonoBehaviour
         wobblyMovement.animator.SetBool("landed", true);
         rhythmAnimator.SetBool("moving", true);
 
+        initialPos = wobblyMovement.GetComponentInChildren<GroundChecker>().transform.localPosition;
     }
 
     // Update is called once per frame
@@ -141,6 +145,8 @@ public class GameLogic : MonoBehaviour
                             targetTime = float.MaxValue;
                             Debug.Log("remove Life");
                             wobblyMovement.Fail();
+                            rhythmAnimator.enabled = false;
+                            UI.active = true;
                             pressableObject = null;
                         }
                     }
@@ -204,6 +210,11 @@ public class GameLogic : MonoBehaviour
                 //mainCam.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene("EndlessScene");
     }
 
 }
