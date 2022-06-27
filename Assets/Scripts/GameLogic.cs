@@ -185,10 +185,7 @@ public class GameLogic : MonoBehaviour
             }
 
         }
-        if(wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Landed"))
-        {
-            SetAge();
-        }
+        SetAge();
     }
 
     private void ChangePhase()
