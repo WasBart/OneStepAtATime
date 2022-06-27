@@ -29,6 +29,10 @@ public class GameLogic : MonoBehaviour
     private bool jumpAllowed;
     public GameObject UI;
     public Vector3 initialPos;
+    public int playerAge;
+
+    public GameObject[] ageTexts;
+    public int ageTextIndex = 0;
 
     void Start()
     {
@@ -181,6 +185,7 @@ public class GameLogic : MonoBehaviour
             }
 
         }
+        SetAge();
     }
 
     private void ChangePhase()
@@ -220,6 +225,29 @@ public class GameLogic : MonoBehaviour
     public void Reset()
     {
         SceneManager.LoadScene("EndlessScene");
+    }
+
+    private void SetAge()
+    {
+        // Teleport case, set previous stairs to new number
+        if(ageTextIndex >= 30)
+        {
+            for (int i = 20; i >= 0; i--)
+            {
+                ageTexts[i].GetComponent<Text>().text = (playerAge - 10 - (20-i)) + "";
+            }
+            ageTextIndex = 20;
+        }
+        ageTexts[ageTextIndex].GetComponent<Text>().text = playerAge + "";        
+    }
+
+    private void SetTestAge()
+    {
+        foreach(GameObject ageText in ageTexts)
+        {
+            ageText.GetComponent<Text>().text = ageTextIndex + "";
+            ageTextIndex++;
+        } 
     }
 
 }

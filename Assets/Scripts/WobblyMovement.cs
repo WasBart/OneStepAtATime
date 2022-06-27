@@ -14,6 +14,8 @@ public class WobblyMovement : MonoBehaviour
     public float time;
     public float barAnimSpeed = 0.75f;
 
+    public GameLogic gl;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,7 @@ public class WobblyMovement : MonoBehaviour
         }
 
         //Debug.Log(rb_body.velocity.sqrMagnitude);
+        Debug.Log(gl.playerAge);
 
     }
 
@@ -56,6 +59,8 @@ public class WobblyMovement : MonoBehaviour
         animator.SetBool("landed", false);
         animator.SetBool("isJumping", true);
         time = Time.time;
+        gl.playerAge++;
+        gl.ageTextIndex++;
     }
 
     public void PrepareJump()
