@@ -48,7 +48,6 @@ public class WobblyMovement : MonoBehaviour
         }
 
         //Debug.Log(rb_body.velocity.sqrMagnitude);
-        Debug.Log(gl.playerAge);
 
     }
 
