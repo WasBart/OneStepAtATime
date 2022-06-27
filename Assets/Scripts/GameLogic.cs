@@ -45,7 +45,7 @@ public class GameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("fail"))
+        if (Input.GetKeyDown(KeyCode.Space) && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("fail") && !wobblyMovement.animator.GetBool("fail"))
         {
             Debug.Log("Down Triggered");
             curTime = Time.time;
@@ -64,9 +64,9 @@ public class GameLogic : MonoBehaviour
             }
         }
 
-        if(Time.time >= targetTime && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("fail") && !initJump)
+        if (Time.time >= targetTime && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !wobblyMovement.animator.GetCurrentAnimatorStateInfo(0).IsName("fail") && !initJump)
         {
-            pressableObjects.ForEach(c => c.GetComponent<Image>().color = new Color(0.9f, 0.9f, 0.9f,1.0f));
+            pressableObjects.ForEach(c => c.GetComponent<Image>().color = new Color(0.9f, 0.9f, 0.9f, 1.0f));
             jumpAllowed = true;
         }
         else
@@ -85,7 +85,7 @@ public class GameLogic : MonoBehaviour
                 if (Time.time >= targetTime)
                 {
                     targetTime = float.MaxValue;
-                  
+
                     if (pressableObject != null)
                     {
                         Debug.Log(pressableObject.gameObject.name);
@@ -99,36 +99,41 @@ public class GameLogic : MonoBehaviour
                             Debug.Log(stepCount);
                             if (pressableObjects.Count == 0)
                             {
-                                
+
                                 Debug.Log("trigger step");
                                 pressableObject = null;
                                 pressableObjects = new List<PressableObject>(pressableObjectsCopy);
                                 pressableObjectsCopy.Clear();
                                 pressableObjects.ForEach(p => p.Restore());
-                               
+
 
                                 if (currentPhase == 1)
                                 {
                                     moving.GetComponent<RectTransform>().anchoredPosition = new Vector3(Random.Range(-250.0f, 250.0f), phases[currentPhase].GetComponent<RectTransform>().anchoredPosition.y);
                                 }
 
-                                if(currentPhase == 3)
+                                if (currentPhase == 3)
                                 {
+                                    if (errorPressableObjects[0].GetComponent<RectTransform>().sizeDelta.x < 295)
+                                    {
+                                        errorPressableObjects.ForEach(c => c.GetComponent<RectTransform>().sizeDelta += new Vector2(5, 0));
+                                        errorPressableObjects.ForEach(c => c.GetComponent<BoxCollider2D>().size += new Vector2(5, 0));
+                                    }
 
-                                    if (pressableObjects[0].GetComponent<RectTransform>().sizeDelta.x > 20)
+                                    if (pressableObjects[0].GetComponent<RectTransform>().sizeDelta.x > 20 && errorPressableObjects[0].GetComponent<RectTransform>().sizeDelta.x > 120)
                                     {
                                         Debug.Log(pressableObjects[0].GetComponent<RectTransform>().sizeDelta);
-                                        pressableObjects.ForEach(c => c.GetComponent<RectTransform>().sizeDelta -= new Vector2(20, 0));
-                                        pressableObjects.ForEach(c => c.GetComponent<BoxCollider2D>().size -= new Vector2(20, 0));
+                                        pressableObjects.ForEach(c => c.GetComponent<RectTransform>().sizeDelta -= new Vector2(2.75f, 0));
+                                        pressableObjects.ForEach(c => c.GetComponent<BoxCollider2D>().size -= new Vector2(2.75f, 0));
                                         pressableObjects.ForEach(c => c.GetComponent<AllowedPressableObject>().currentSize = c.GetComponent<RectTransform>().sizeDelta);
-                                        errorPressableObjects.ForEach(c => c.GetComponent<RectTransform>().sizeDelta += new Vector2(35, 0));
-                                        errorPressableObjects.ForEach(c => c.GetComponent<BoxCollider2D>().size += new Vector2(35, 0));
+
                                     }
-                                    else
+                                    
+                                    if(pressableObjects[0].GetComponent<RectTransform>().sizeDelta.x <= 20)
                                     {
-                                        if (wobblyMovement.barAnimSpeed < 1.2f)
+                                        if (wobblyMovement.barAnimSpeed < 1.15f)
                                         {
-                                            wobblyMovement.barAnimSpeed += 0.1f;
+                                            wobblyMovement.barAnimSpeed += 0.01f;
                                         }
                                     }
                                 }
