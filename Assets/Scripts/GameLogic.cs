@@ -234,7 +234,7 @@ public class GameLogic : MonoBehaviour
         {
             for (int i = 20; i >= 0; i--)
             {
-                ageTexts[i].GetComponent<Text>().text = (playerAge - 20-i) + "";
+                ageTexts[i].GetComponent<Text>().text = (playerAge - (20-i)) + "";
             }
             for (int i = 21; i < ageTexts.Length; i++)
             {
