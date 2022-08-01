@@ -42,6 +42,7 @@ public class GameLogic : MonoBehaviour
         rhythmAnimator.SetFloat("speed", wobblyMovement.barAnimSpeed);
         wobblyMovement.animator.SetBool("landed", true);
         rhythmAnimator.SetBool("moving", true);
+        pubertyAnimator.SetFloat("speed", 0.5f);
 
         initialPos = wobblyMovement.GetComponentInChildren<GroundChecker>().transform.localPosition;
     }
@@ -137,7 +138,7 @@ public class GameLogic : MonoBehaviour
                                     {
                                         if (wobblyMovement.barAnimSpeed < 1.15f)
                                         {
-                                            wobblyMovement.barAnimSpeed += 0.01f;
+                                            wobblyMovement.barAnimSpeed += 0.1f;
                                         }
                                     }
                                 }
@@ -209,14 +210,14 @@ public class GameLogic : MonoBehaviour
             if (currentPhase == 2)
             {
                 rhythmAnimator.enabled = true;
-                wobblyMovement.barAnimSpeed = 0.7f;
+                wobblyMovement.barAnimSpeed = 0.35f;
                 //mainCam.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
 
             if (currentPhase == 3)
             {
                 rhythmAnimator.enabled = true;
-                wobblyMovement.barAnimSpeed = 0.5f;
+                wobblyMovement.barAnimSpeed = 0.35f;
                 //mainCam.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
